@@ -1,45 +1,43 @@
 ﻿@model IEnumerable<Tipo_Datos.Models.Entidades.ClientesModel>
 @{
-    ViewData["Title"] = "Ventas - Lista de Clientes";
-    //crear clientes el fondo es azul
+ 
+    ViewData["Title"] = "Lista de Clientes";
+    // crear clientes el fondo es azul y el texto en blanco
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
-
 <h1>Lista de Clientes</h1>
-<p>
-    <a asp-action="Nuevo" class="btn btn-primary">Crear Cliente</a>
-</p>
-
-<table class="table table-responsive table-bordered table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>#</th>
-            <th>Nombre Cliente</th>
-            <th>RUC</th>
-            <th>Telefono</th>
-            <th>Email</th>
-            <th>Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="mb-3">
+    <a asp-action="Nuevo" class="btn btn-success">Crear Nuevo Cliente</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
             <tr>
-                <td>@item.Id</td>
-                <td>@Html.DisplayFor(modelItem => item.Nombres)</td>
-                <td>@Html.DisplayFor(modelItem => item.Cedula_RUC)</td>
-                <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
-                <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                <td>
-                    <a asp-action="Editar" class="btn btn-outline-success" asp-route-id="@item.Id">Editar</a>
-                    @if (item.isDelete == true)
-                    {
-
-                        <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">Delete</a>
-
-                    }
-                </td>
+                <th>#</th>
+                <th>Nombre Cliente</th>
+                <th>Email</th>
+                <th>Cédula/RUC</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.Id</td>
+                    <td>@cliente.Nombres</td>
+                    <td>@cliente.Email</td>
+                    <td>@cliente.Cedula_RUC</td>
+                    <td>@cliente.Telefono</td>
+                    <td>
+                        <a asp-action="Detalle" asp-route-id="@cliente.Id" class="btn btn-outline-primary"><i class="fa-solid fa-circle-info"></i></a>
+                        <a asp-action="Editar" asp-route-id="@cliente.Id" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a asp-action="Eliminar" asp-route-id="@cliente.Id" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
