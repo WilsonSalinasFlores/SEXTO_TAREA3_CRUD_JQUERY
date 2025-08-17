@@ -70,7 +70,7 @@ var cargarproducto = (producto) => {
 
 function Listar_Clientes() {
     $.ajax({
-        url: '/api/ClientesApi', // Cambia esta URL según tu API
+        url: '/api/ClientesApi/Activos', // Cambia esta URL según tu API
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -101,22 +101,101 @@ function Listar_Clientes() {
 
 function Cargar_Cliente(id) {
     $.get(`/api/ClientesApi/${id}`, (cliente) => {
+        $("#id").val(cliente.id);
         $("#nombre").text(cliente.nombres);
         $("#email").text(cliente.email);
         $("#telefono").text(cliente.telefono);
         $("#direccion").text(cliente.direccion);
         $("#cedula_RUC").text(cliente.cedula_RUC);
-        $("#Create_At").text(cliente.create_At);
-        $("#Update_At").text(cliente.update_At);
+        $("#create_At").text(cliente.create_At);
+        $("#update_At").text(cliente.update_At);
         $("#isDelete").text(cliente.isDelete);
     });
     $("#btnEditar").click(function () {
         window.location.href = `/ClienteQuery/Editar/${id}`;
     });
+    $("#btnEliminar").attr("onclick", `Eliminar_Cliente(${id})`);
 
 }
 
 
+function Cargar_Cliente_Edicion(id) {
+    $.ajax({
+        url: '/api/ClientesApi/' + id,
+        type: 'GET',
+        success: function (data) {
+            if (data) {
+                $('#nombres').val(data.nombres);
+                $('#email').val(data.email);
+                $('#telefono').val(data.telefono);
+                $('#direccion').val(data.direccion);
+                $('#cedula_RUC').val(data.cedula_RUC);
+                $('#id').val(data.id);
+                $('#create_At').val(data.create_At);
+                $('#update_At').val(data.update_At);
+                $('#isDeleted').val(data.isDeleted);
+               $("#btnEditar").attr("onclick", `Editar_Cliente(${id})`);
+            }
+        },
+        error: function () {
+            alert('Error al cargar los datos del cliente.');
+        }
+    });
+}
+
+function Eliminar_Cliente(id) {
+    $.get(`/api/ClientesApi/${id}`, (cliente) => {
+        console.log(cliente);
+        cliente.isDelete = true;
+        $.ajax({
+            url: `/api/ClientesApi/${id}`,
+            type: "PUT",
+            data: JSON.stringify(cliente),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        })
+        .done(function () {
+            alert("Cliente eliminado exitosamente.");
+            window.location.href = "/ClienteQuery/Index";
+        })
+        .fail(function (error) {
+            alert("Error al eliminar cliente: ");
+            console.error("Error details:", error);
+        });
+    });
+}
+ 
+
+
+function Editar_Cliente(id) {
+    const cliente = {
+        id: id,
+        nombres: $("#nombres").val(),
+        email: $("#email").val(),
+        telefono: $("#telefono").val(),
+        direccion: $("#direccion").val(),
+        cedula_RUC: $("#cedula_RUC").val(),
+        create_At: $("#create_At").val() || new Date().toISOString(),
+        update_At: new Date().toISOString(),
+        isDelete: $("#isDeleted").val() === "true" ? true : false
+    };
+    console.log(cliente);
+    $.ajax({
+        url: `/api/ClientesApi/${id}`,
+        type: "PUT",
+        data: JSON.stringify(cliente),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    })
+    .done(function () {
+        alert("Cliente actualizado exitosamente.");
+        window.location.href = "/ClienteQuery/Index";
+    })
+    .fail(function (error) {
+        alert("Error al actualizar cliente: ");
+        console.error("Error details:", error);
+    });
+}
 function Crear_Cliente(){
     const cliente = {
         nombres: $("#Nombres").val(),
@@ -125,7 +204,7 @@ function Crear_Cliente(){
         direccion: $("#Direccion").val(),
         cedula_RUC: $("#Cedula_RUC").val(),
         create_At: new Date().toISOString(),
-        update_At: "0001-01-01 00:00:00.0000000",
+        update_At: "0001-01-01",
         isDelete: false
     };
 

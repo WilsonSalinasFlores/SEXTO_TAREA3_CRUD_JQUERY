@@ -1,75 +1,75 @@
 ﻿@model Tipo_Datos.Models.Entidades.ClientesModel
 @{
 
-    ViewData["Title"] = "Detalle Cliente Api";
+    ViewData["Title"] = "Eliminar Cliente Api";
     // crear clientes el fondo es azul y el texto en blanco
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 <div>
-    <h4>Detalle del Cliente Api</h4>
+    <h4>Desea eliminar al cliente?</h4>
     <hr />
     <dl class="row">
         <input type="hidden" id="id" />
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Nombres:
         </dt>
-        <dd class = "col-sm-10" >
+        <dd class="col-sm-10">
             <span id="nombre"></span>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Email:
         </dt>
-        <dd class = "col-sm-10" >
+        <dd class="col-sm-10">
             <span id="email"></span>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Teléfono:
         </dt>
-        <dd class = "col-sm-10" >
+        <dd class="col-sm-10">
             <span id="telefono"></span>
         </dd>
-        <dt class = "col-sm-2">
-             Dirección:
+        <dt class="col-sm-2">
+            Dirección:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             <span id="direccion"></span>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Cedula/RUC:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             <span id="cedula_RUC"></span>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Creacion:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             <span id="create_At"></span>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Actualización:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             <span id="update_At"></span>
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Esta eliminado:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             <span id="isDelete"></span>
         </dd>
     </dl>
 </div>
 <div id="acciones">
-    <a id="btnEditar" class="btn btn-outline-success" href="#"><i class="fa-solid fa-pen-to-square"></i></a> |
+    <a id="btnEliminar" class="btn btn-outline-danger" href="#"><i class="fa-solid fa-trash"></i></a> |
     <a href="/ClienteQuery">Regresar a la lista</a>
 </div>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-          
+
             var url = window.location.pathname;
             var id = url.substring(url.lastIndexOf('/') + 1);
             Cargar_Cliente(id);
