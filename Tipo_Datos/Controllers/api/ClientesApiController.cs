@@ -21,6 +21,8 @@ namespace Tipo_Datos.Controllers.api
             _context = context;
         }
 
+
+
         // GET: api/ClientesApi
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientesModel>>> GetClientes()
