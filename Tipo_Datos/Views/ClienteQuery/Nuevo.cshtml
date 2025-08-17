@@ -1,0 +1,45 @@
+﻿@model Tipo_Datos.Models.Entidades.ClientesModel
+@{
+
+    ViewData["Title"] = "Nuevo Cliente";
+    // crear clientes el fondo es azul y el texto en blanco
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<h4>Nuevo Cliente Api</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Nuevo">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label  class="control-label">Nombres:</label>
+                <input id="Nombres" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email:</label>
+                <input id="Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Teléfono:</label>
+                <input id="Telefono" class="form-control" />  
+            </div>
+            <div class="form-group">
+                <label class="control-label">Dirección:</label>
+                <input id="Direccion" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Cedula/Ruc:</label>
+                <input id="Cedula_RUC" class="form-control" />
+            </div>
+            <div class="form-group">
+                <a class="btn btn-success" onclick="Crear_Cliente()">Crear</a>
+                
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="/ClienteQuery">Regresar a la lista</a>
+</div>

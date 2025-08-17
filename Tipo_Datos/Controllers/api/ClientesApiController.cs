@@ -30,6 +30,18 @@ namespace Tipo_Datos.Controllers.api
             return await _context.Clientes.ToListAsync();
         }
 
+        // GET: api/ClientesApi/Activos
+        [HttpGet("Activos")]
+        public async Task<ActionResult<IEnumerable<ClientesModel>>> GetClientesActivos()
+        {
+            return await _context.Clientes
+                                 .Where(c => !c.isDelete)
+                                 .ToListAsync();
+        }
+
+
+
+
         // GET: api/ClientesApi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ClientesModel>> GetClientesModel(int id)
